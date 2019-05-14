@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="showcase">
-      <img :src="`../assets/imageProducts/` + url" />
+      <img :src="'/imageProducts/' + url" />
     </div>
 
     <div class="details">
