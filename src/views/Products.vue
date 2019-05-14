@@ -7,6 +7,9 @@
 
 <script>
 export default {
-  name: "products"
+  name: "products",
+  date() {
+    return {};
+  }
 };
 </script>

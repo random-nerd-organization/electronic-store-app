@@ -1,8 +1,9 @@
 <template>
   <div class="card">
     <div class="showcase">
-      <img :src="url" />
+      <img :src="`../assets/imageProducts/` + url" />
     </div>
+
     <div class="details">
       <div class="title">{{ title }}</div>
       <div class="description">{{ description }}</div>
