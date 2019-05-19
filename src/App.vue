@@ -38,7 +38,6 @@ body {
   .main-container {
     margin: auto;
     width: 1200px;
-    border: 1px solid black;
   }
 }
 </style>

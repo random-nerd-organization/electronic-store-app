@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
     <div class="product-grid">
       <Card
         v-for="prod in products"
@@ -322,6 +321,7 @@ export default {
     width: 100%;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 5px;
+    margin-top: 50px;
   }
 }
 </style>
