@@ -7,10 +7,11 @@ router.get("/", async (req, res) => {
   try {
     const data = await Product.find().exec();
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).jsonp(JSON.stringify(data));
+    res.json(JSON.stringify(data));
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+  res.end();
 });
 
 module.exports = router;
