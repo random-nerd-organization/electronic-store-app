@@ -14,6 +14,9 @@ export default {
   name: "navigation",
   components: {
     Navigation
+  },
+  beforeCreate() {
+    this.$store.dispatch("getProducts");
   }
 };
 </script>
@@ -35,6 +38,7 @@ body {
   text-align: center;
   color: #2c3e50;
   width: 100vw;
+  position: relative;
   .main-container {
     margin: auto;
     width: 1200px;

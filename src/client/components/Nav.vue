@@ -39,16 +39,21 @@
         </g>
       </svg>
     </div>
+    <Cart />
   </nav>
 </template>
 
 <script>
+import Cart from "./Cart";
 export default {
-  name: "navigation"
+  name: "navigation",
+  components: {
+    Cart
+  }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 nav {
   display: flex;
   background-color: #229ac8;

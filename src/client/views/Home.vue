@@ -3,9 +3,9 @@
     <div class="product-grid">
       <Card
         v-for="prod in products"
-        :key="prod.id"
+        :key="prod._id"
         :card="prod"
-        :addedToCart="addedToCart(prod.id)"
+        :addedToCart="addedToCart(prod._id)"
       />
     </div>
   </div>
@@ -18,28 +18,25 @@ export default {
   components: {
     Card
   },
-   async beforeCreate() {
-    const res = await fetch(
-      //`http://localhost:9000/.netlify/functions/app/products`
-      `https://${window.location.host}/.netlify/functions/app/products`
-    );
-    const data = await res.json();
-    this.products = data;
-  },
   data: function() {
     return {
-      products: []
+      // products: []
     };
   },
   methods: {
     addedToCart(id) {
       return this.$store.getters.getCart.includes(id);
     }
+  },
+  computed: {
+    products() {
+      return this.$store.getters.getProducts;
+    }
   }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .home {
   .product-grid {
     display: grid;

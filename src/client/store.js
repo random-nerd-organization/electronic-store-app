@@ -11,12 +11,13 @@ const vuexLocal = new VuexPersistence({
 
 export default new Vuex.Store({
   state: {
-    Cart: []
+    Cart: [],
+    ProductList: []
   },
   mutations: {
     addToCart(state, product) {
-      if (!state.Cart.includes(product.id)) {
-        state.Cart.push(product.id);
+      if (!state.Cart.includes(product._id)) {
+        state.Cart.push(product._id);
       }
     },
     removeFromCardById(state, id) {
@@ -24,12 +25,33 @@ export default new Vuex.Store({
       if (index != -1) {
         state.Cart = state.Cart.splice(index, 1);
       }
+    },
+    setAllProducts(state, products) {
+      state.ProductList = products;
     }
   },
-  actions: {},
+  actions: {
+    async getProducts({ commit }) {
+      const res = await fetch(
+        `http://localhost:9000/.netlify/functions/app/products`
+        //`https://${window.location.host}/.netlify/functions/app/products`
+      );
+
+      const data = await res.json();
+      commit("setAllProducts", data);
+    }
+  },
   getters: {
     getCart(state) {
       return state.Cart;
+    },
+    getProducts(state) {
+      return state.ProductList;
+    },
+    getProductsFromCart(state) {
+      return state.ProductList.filter(product =>
+        state.Cart.includes(product._id)
+      );
     }
   },
   plugins: [vuexLocal.plugin]
