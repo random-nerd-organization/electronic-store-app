@@ -4,10 +4,8 @@
       <Card
         v-for="prod in products"
         :key="prod.id"
-        :url="prod.imgUrl"
-        :title="prod.title"
-        :description="prod.description"
-        :price="'$' + prod.price"
+        :card="prod"
+        :addedToCart="addedToCart(prod.id)"
       />
     </div>
   </div>
@@ -310,6 +308,11 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    addedToCart(id) {
+      return this.$store.getters.getCart.includes(id);
+    }
   }
 };
 </script>

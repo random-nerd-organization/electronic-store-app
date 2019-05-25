@@ -1,15 +1,19 @@
 <template>
   <div class="card">
     <div class="showcase">
-      <img :src="'/imageProducts/' + url" />
+      <img :src="'/imageProducts/' + card.imgUrl" />
     </div>
 
     <div class="details">
-      <div class="title">{{ title }}</div>
+      <div class="title">{{ card.title }}</div>
       <div class="description">{{ desc }}</div>
-      <div class="price">{{ price }}</div>
+      <div class="price">{{ card.price }}</div>
     </div>
-    <button class="add">
+    <button
+      v-on:click="addToCart(card)"
+      class="add"
+      :class="{ checked: addedToCart }"
+    >
       <i class="fas fa-shopping-cart"></i>
       <svg
         baseProfile="tiny"
@@ -42,7 +46,8 @@
             <circle cx="17.5" cy="19.5" r="1.5"></circle>
           </g>
         </g></svg
-      >Add to Cart
+      ><span v-if="!addedToCart">Add to Cart</span>
+      <span v-if="addedToCart">In Cart</span>
     </button>
   </div>
 </template>
@@ -50,15 +55,20 @@
 <script>
 export default {
   name: "card",
-  props: ["url", "title", "description", "price"],
+  props: ["card", "addedToCart"],
   computed: {
     desc: function() {
-      let arr = this.description.split(" ");
+      let arr = this.card.description.split(" ");
       let shorterDesc = "";
       for (let i = 0; shorterDesc.length < 25; i++) {
         shorterDesc += arr[i] + " ";
       }
       return shorterDesc;
+    }
+  },
+  methods: {
+    addToCart(id) {
+      this.$store.commit("addToCart", id);
     }
   }
 };
@@ -136,6 +146,9 @@ export default {
     &:active {
       outline: none;
     }
+  }
+  .checked {
+    background: springgreen;
   }
 }
 </style>

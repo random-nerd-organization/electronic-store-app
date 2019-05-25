@@ -1,25 +1,36 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import VuexPersistence from "vuex-persist";
 
 Vue.use(Vuex);
 
+const vuexLocal = new VuexPersistence({
+  storage: window.localStorage,
+  reducer: state => ({ Cart: state.Cart })
+});
+
 export default new Vuex.Store({
   state: {
-    inCart: []
+    Cart: []
   },
   mutations: {
     addToCart(state, product) {
-      state.inCart.push(product);
+      if (!state.Cart.includes(product.id)) {
+        state.Cart.push(product.id);
+      }
     },
     removeFromCardById(state, id) {
-      const index = state.inCart.findIndex(product => product.id === id);
-      state.inCart = state.inCart.splice(index, 1);
+      const index = state.Cart.findIndex(product => product.id === id);
+      if (index != -1) {
+        state.Cart = state.Cart.splice(index, 1);
+      }
     }
   },
   actions: {},
   getters: {
-    cart(state) {
-      return state.inCart;
+    getCart(state) {
+      return state.Cart;
     }
-  }
+  },
+  plugins: [vuexLocal.plugin]
 });
