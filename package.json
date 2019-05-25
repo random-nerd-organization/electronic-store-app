@@ -6,17 +6,18 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "start": "node src/server/app.js",
-    "dev": "nodemon src/server/app.js"
+    "serve:lambda": "netlify-lambda serve src/server",
+    "build:lambda": "netlify-lambda build src/server"
   },
   "dependencies": {
-    "body-parser": "^1.19.0",
     "core-js": "^2.6.5",
+    "vue": "^2.6.10",
+    "netlify-lambda": "^1.4.13",
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.0",
-    "mongodb": "^3.2.6",
     "mongoose": "^5.5.11",
-    "vue": "^2.6.10",
+    "serverless-http": "^2.0.2",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"
   },
@@ -30,7 +31,6 @@
     "eslint-plugin-vue": "^5.0.0",
     "lint-staged": "^8.1.5",
     "node-sass": "^4.9.0",
-    "nodemon": "^1.19.0",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.5.21"
   },

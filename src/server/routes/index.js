@@ -1,7 +1,11 @@
 module.exports = app => {
-  const products = require("./products");
-  const cart = require("./cart");
+  const baseUrl = '/.netlify/functions/app';
 
-  app.use("/api/products", products);
-  app.use("/api/cart", cart);
+  const main = require('./main');
+  const products = require('./products');
+  const cart = require('./cart');
+
+  // app.use(`${baseUrl}`, main);
+  app.use(`${baseUrl}/products`, products);
+  app.use(`${baseUrl}/cart`, cart);
 };
