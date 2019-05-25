@@ -20,8 +20,8 @@ export default {
   },
    async beforeCreate() {
     const res = await fetch(
-      `http://localhost:9000/.netlify/functions/app/products`
-      // `https://${window.location.host}/.netlify/functions/app/products`
+      // `http://localhost:9000/.netlify/functions/app/products`
+      `https://${window.location.host}/.netlify/functions/app/products`
     );
     const data = await res.json();
     console.log(data);
