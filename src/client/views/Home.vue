@@ -19,8 +19,14 @@ export default {
     Card
   },
   async beforeCreate() {
-    // const res = await fetch('http://localhost:9000/.netlify/functions/app/products');
-    // console.log(await res.json());
+    const res = await fetch(
+      "http://localhost:9000/.netlify/functions/app/products"
+    );
+    this.products = await res.json();
+    if (this.products) {
+      console.log(this.products);
+      console.log("XIXI");
+    }
   },
   data: function() {
     return {

@@ -7,7 +7,8 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "serve:lambda": "netlify-lambda serve src/server",
-    "build:lambda": "netlify-lambda build src/server"
+    "build:lambda": "netlify-lambda build src/server",
+    "prod": "npm run build && npm run build:lambda"
   },
   "dependencies": {
     "core-js": "^2.6.5",
