@@ -18,15 +18,13 @@ export default {
   components: {
     Card
   },
-  async beforeCreate() {
+   async beforeCreate() {
     const res = await fetch(
-      `https://${window.location.host}/.netlify/functions/app/products`
+      `http://localhost:9000/.netlify/functions/app/products`
+      // `https://${window.location.host}/.netlify/functions/app/products`
     );
-    this.products = await res.json();
-    if (this.products) {
-      console.log(this.products);
-      console.log("XIXI");
-    }
+    const data = await res.json();
+    console.log(data);
   },
   data: function() {
     return {
