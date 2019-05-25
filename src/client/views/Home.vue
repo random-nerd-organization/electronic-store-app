@@ -19,9 +19,9 @@ export default {
     Card
   },
   async beforeCreate() {
+    console.log()
     const res = await fetch(
-      // "http://localhost:9000/.netlify/functions/app/products"
-      "https://5ce91fd847ae650007e002a6--electronic-store.netlify.com/.netlify/functions/app/products"
+      `https://${window.location.host}/.netlify/functions/app/products`
     );
     this.products = await res.json();
     console.log(Vue);
