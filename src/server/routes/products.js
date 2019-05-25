@@ -6,10 +6,9 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const data = await Product.find().exec();
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.status(200).send(data);
+    res.status(200).json(data);
   } catch (err) {
-    res.status(500).send({ error: err.message });
+    res.status(500).json({ error: err.message });
   }
 });
 
