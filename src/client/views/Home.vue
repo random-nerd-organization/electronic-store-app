@@ -19,12 +19,10 @@ export default {
     Card
   },
   async beforeCreate() {
-    console.log()
     const res = await fetch(
       `https://${window.location.host}/.netlify/functions/app/products`
     );
     this.products = await res.json();
-    console.log(Vue);
     if (this.products) {
       console.log(this.products);
       console.log("XIXI");
