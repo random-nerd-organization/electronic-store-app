@@ -32,12 +32,11 @@ export default new Vuex.Store({
   },
   actions: {
     async getProducts({ commit }) {
-      console.log(process.env);
-      const res = await fetch(
-        //`https://${window.location.host}/.netlify/functions/app/products`
-        `http://localhost:9000/.netlify/functions/app/products`,
-        { mode: 'cors' }
-      );
+      const url = process.env.NODE_ENV === 'development'
+        ? 'http://localhost:9000/.netlify/functions/app/products'
+        : 'https://electronic-store.netlify.com/.netlify/functions/app/products';
+
+      const res = await fetch(url);
 
       const data = await res.json();
       commit("setAllProducts", data);

@@ -19,8 +19,6 @@ export default {
     Card
   },
   data: function() {
-
-    console.log(process.env);
     return {
       // products: []
     };
