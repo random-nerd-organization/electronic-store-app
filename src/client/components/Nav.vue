@@ -6,6 +6,9 @@
       <router-link to="/category3">Category1</router-link>
     </div>
     <div class="info">
+      <div class="cart-number" v-if="getCart.length > 0">
+        {{ getCart.length }}
+      </div>
       <svg
         baseProfile="tiny"
         height="24px"
@@ -49,6 +52,11 @@ export default {
   name: "navigation",
   components: {
     Cart
+  },
+  computed: {
+    getCart() {
+      return this.$store.getters.getCart;
+    }
   }
 };
 </script>
@@ -87,18 +95,34 @@ nav {
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    width: 200px;
-    padding-right: 30px;
+    justify-content: center;
+    width: fit-content;
+    position: relative;
+    margin-right: 20px;
+    transition: transform 0.1s ease-in;
+    &:hover {
+      transform: scale(0.9);
+    }
+    .cart-number {
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: crimson;
+      position: absolute;
+      color: white;
+      font-size: 0.6em;
+      right: -7px;
+      bottom: 2px;
+      z-index: 1;
+    }
     svg {
       background: white;
       border-radius: 50%;
       padding: 4px;
       cursor: pointer;
-      transition: transform 0.1s ease-in;
-      &:hover {
-        transform: scale(0.9);
-      }
     }
   }
 }

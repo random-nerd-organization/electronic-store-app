@@ -7,21 +7,22 @@
         :card="prod"
         :addedToCart="addedToCart(prod._id)"
       />
+      <Carousel>
+        <Slide></Slide>
+      </Carousel>
     </div>
   </div>
 </template>
 
 <script>
 import Card from "@/components/Card.vue";
+import { Carousel, Slide } from "vue-carousel";
 export default {
   name: "home",
   components: {
-    Card
-  },
-  data: function() {
-    return {
-      // products: []
-    };
+    Card,
+    Carousel,
+    Slide
   },
   methods: {
     addedToCart(id) {

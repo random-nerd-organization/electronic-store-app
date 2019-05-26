@@ -21,9 +21,9 @@ export default new Vuex.Store({
       }
     },
     removeFromCardById(state, id) {
-      const index = state.Cart.findIndex(product => product.id === id);
+      const index = state.Cart.indexOf(id);
       if (index != -1) {
-        state.Cart = state.Cart.splice(index, 1);
+        state.Cart.splice(index, 1);
       }
     },
     setAllProducts(state, products) {

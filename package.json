@@ -11,14 +11,15 @@
     "prod": "npm run build && npm run build:lambda"
   },
   "dependencies": {
-    "core-js": "^2.6.5",
-    "vue": "^2.6.10",
-    "netlify-lambda": "^1.4.13",
     "body-parser": "^1.19.0",
+    "core-js": "^2.6.5",
     "cors": "^2.8.5",
     "express": "^4.17.0",
     "mongoose": "^5.5.11",
+    "netlify-lambda": "^1.4.13",
     "serverless-http": "^2.0.2",
+    "vue": "^2.6.10",
+    "vue-carousel": "^0.18.0",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1",
     "vuex-persist": "^2.0.1"

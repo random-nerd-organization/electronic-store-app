@@ -44,7 +44,11 @@
         </g></svg
       ><span>Add to Cart</span>
     </button>
-    <button v-on:click="addToCart(card)" class="add checked" v-if="addedToCart">
+    <button
+      v-on:click="removeFromCart(card._id)"
+      class="add checked"
+      v-if="addedToCart"
+    >
       <i class="fas fa-shopping-cart"></i>
       <svg
         baseProfile="tiny"
@@ -100,6 +104,9 @@ export default {
   methods: {
     addToCart(id) {
       this.$store.commit("addToCart", id);
+    },
+    removeFromCart(id) {
+      this.$store.commit("removeFromCardById", id);
     }
   }
 };
