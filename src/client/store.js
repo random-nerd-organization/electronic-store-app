@@ -39,8 +39,8 @@ export default new Vuex.Store({
           : 'https://electronic-store.netlify.com/.netlify/functions/app/products';
 
       const res = await fetch(url);
-
       const data = await res.json();
+
       commit('setAllProducts', data);
     }
   },
