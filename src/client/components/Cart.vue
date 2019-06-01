@@ -1,16 +1,12 @@
 <template>
-  <div class="cart" v-if="getCartItems.length > 0">
-    <div class="initial-box" v-on:click="detailsToggle">
-      <h3>Products in Cart</h3>
-      <div>${{ totalPrice }}</div>
-    </div>
-    <div
-      class="main-box"
-      :class="{ open: showDetails, scroll: getCartItems.length > 3 }"
-    >
+  <div class="cart" :class="{ open: showCart }">
+    <div class="main-box" :class="{ scroll: getCartItems.length > 3 }">
       <div class="item" v-for="(item, key) in getCartItems" :key="key">
         <div class="details">
           <img :src="'/imageProducts/' + item.imgUrl" />
+          <div class="count" v-if="getProductCount(item._id) > 0">
+            {{ getProductCount(item._id) }}
+          </div>
           <div class="price">
             <h6>{{ item.title }}</h6>
             <p>${{ getProductCount(item._id) * item.price }}</p>
@@ -24,21 +20,23 @@
         </div>
       </div>
     </div>
+    <div class="initial-box">
+      <h3>Checkout</h3>
+      <div>${{ totalPrice }}</div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'Cart',
-  data: function() {
-    return {
-      showDetails: false
-    };
-  },
+  props: ['showCart'],
+  // data: function() {
+  //   return {
+  //     showDetails: false
+  //   };
+  // },
   methods: {
-    detailsToggle() {
-      this.showDetails = !this.showDetails;
-    },
     removeOneFromCart(id) {
       this.$store.commit('removeOneFromCart', id);
     },
@@ -63,9 +61,11 @@ export default {
       return this.$store.getters.getCart;
     },
     totalPrice() {
-      return this.getCartItems
-        .map(x => x.price)
-        .reduce((sum = 0, prod) => sum + prod);
+      let totalPrice = 0;
+      this.getCartItems.forEach(item => {
+        totalPrice += this.getProductCount(item._id) * item.price;
+      });
+      return totalPrice;
     }
   }
 };
@@ -73,15 +73,17 @@ export default {
 
 <style lang="scss" scoped>
 .cart {
-  position: fixed;
-  bottom: 0px;
+  position: absolute;
+  top: 60px;
   right: 0px;
   width: 300px;
   display: flex;
-  flex-direction: column-reverse;
-  opacity: 0.9999;
+  flex-direction: column;
+  transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+  transform: translateY(-30px);
   z-index: 1;
-  .order {
+  opacity: 0;
+  rans .order {
     position: absolute;
     left: -30px;
     top: -30px;
@@ -109,25 +111,31 @@ export default {
 
   .main-box {
     width: 100%;
-    height: 0px;
-    transition: height 0.2s ease-in, opacity 0.2s ease-in;
+    height: fit-content;
+    max-height: 440px;
     background: white;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     padding: 8px;
     box-sizing: border-box;
-    opacity: 0;
+    opacity: 1;
     position: relative;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+    border-left: 1px solid rgba(0, 0, 0, 0.3);
+    border-right: 1px solid rgba(0, 0, 0, 0.3);
 
     .item {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      height: 120px;
+      min-height: 120px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.3);
       width: 100%;
       padding: 10px;
       box-sizing: border-box;
+      position: relative;
       &:last-child {
         border: none;
         padding-bottom: 0px;
@@ -180,9 +188,23 @@ export default {
       .details {
         display: flex;
         width: 75%;
-
+        .count {
+          background: crimson;
+          position: absolute;
+          border-radius: 50%;
+          color: white;
+          width: 20px;
+          height: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          box-sizing: border-box;
+          font-size: 0.7em;
+          top: 0px;
+          left: 0px;
+        }
         img {
-          border: 1px solid rgba(0, 0, 0, 0.3);
+          //border: 1px solid rgba(0, 0, 0, 0.3);
           width: 90px;
           height: 90px;
           min-width: 90px;
@@ -201,13 +223,13 @@ export default {
     }
   }
 
-  .open {
-    height: 350px;
-    opacity: 1;
-  }
-
   .scroll {
     overflow-y: scroll;
   }
+}
+
+.open {
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>

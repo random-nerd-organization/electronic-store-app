@@ -18,6 +18,7 @@
         xml:space="preserve"
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
+        v-on:click="toggleCart"
       >
         <g id="Layer_1">
           <g>
@@ -42,16 +43,28 @@
         </g>
       </svg>
     </div>
-    <Cart />
+    <Cart :showCart="showCart && getCart.length > 0" />
   </nav>
 </template>
 
 <script>
-import Cart from "./Cart";
+import Cart from './Cart';
 export default {
-  name: "navigation",
+  name: 'navigation',
   components: {
     Cart
+  },
+  data: function() {
+    return {
+      showCart: false
+    };
+  },
+  methods: {
+    toggleCart() {
+      if (this.getCart.length > 0) {
+        this.showCart = !this.showCart;
+      }
+    }
   },
   computed: {
     getCart() {
@@ -74,6 +87,7 @@ nav {
   justify-content: space-between;
   box-sizing: border-box;
   padding-left: 10px;
+  position: relative;
   .product-nav {
     display: flex;
     height: 100%;
