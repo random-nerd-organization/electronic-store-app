@@ -1,6 +1,7 @@
 <template>
   <nav>
     <div class="product-nav">
+      <router-link to="/">Home</router-link>
       <router-link to="/category1">Category1</router-link>
       <router-link to="/category2">Category2</router-link>
       <router-link to="/category3">Category1</router-link>
