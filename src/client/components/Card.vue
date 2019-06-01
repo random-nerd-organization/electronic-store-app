@@ -45,7 +45,7 @@
       ><span>Add to Cart</span>
     </button>
     <button
-      v-on:click="removeFromCart(card._id)"
+      v-on:click="removeItemFromCart(card._id)"
       class="add checked"
       v-if="addedToCart"
     >
@@ -89,24 +89,24 @@
 
 <script>
 export default {
-  name: "card",
-  props: ["card", "addedToCart"],
+  name: 'card',
+  props: ['card', 'addedToCart'],
   computed: {
     desc: function() {
-      let arr = this.card.description.split(" ");
-      let shorterDesc = "";
+      let arr = this.card.description.split(' ');
+      let shorterDesc = '';
       for (let i = 0; shorterDesc.length < 25; i++) {
-        shorterDesc += arr[i] + " ";
+        shorterDesc += arr[i] + ' ';
       }
       return shorterDesc;
     }
   },
   methods: {
     addToCart(id) {
-      this.$store.commit("addToCart", id);
+      this.$store.commit('addToCart', id);
     },
-    removeFromCart(id) {
-      this.$store.commit("removeFromCardById", id);
+    removeItemFromCart(id) {
+      this.$store.commit('removeItemFromCart', id);
     }
   }
 };
