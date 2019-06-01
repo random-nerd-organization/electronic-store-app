@@ -2,10 +2,13 @@ const express = require("express");
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.writeHead(200, { "Content-Type": "text/html" });
-  res.write("<h1>HELLO CART COMPONENTPAGE</h1>");
-  res.end();
+router.post("/", (req, res) => {
+  const { name, email, phone, message } = req.body;
+  console.log({ name, email, phone, message });
+  res.send(200, {
+    message: 'You finish the order, we will contact you soon for further actions!',
+    data: { name, email, phone, message }
+  });
 });
 
 module.exports = router;
