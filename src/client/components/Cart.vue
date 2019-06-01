@@ -20,10 +20,12 @@
         </div>
       </div>
     </div>
-    <div class="initial-box">
-      <h3>Checkout</h3>
-      <div>${{ totalPrice }}</div>
-    </div>
+    <router-link to="/checkout">
+      <div class="initial-box">
+        <h3>Checkout</h3>
+        <div>${{ totalPrice }}</div>
+      </div></router-link
+    >
   </div>
 </template>
 
