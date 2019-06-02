@@ -8,7 +8,7 @@ router.post('/', async (req, res) => {
   const passwordEmailMerchant = process.env.PASSWORD_MERCHANT;
 
   let transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
+    host: 'smtp.gmail.com', 
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
