@@ -60,15 +60,17 @@ export default new Vuex.Store({
               'Content-Type': 'application/json'
             }
           });
-          
+
           const data = await res.json();
 
           resolve(data);
         } catch (err) {
-          reject({ message: "Something got wrong, we cannot finish this order!", error: err })
+          reject({
+            message: 'Something got wrong, we cannot finish this order!',
+            error: err
+          });
         }
       });
-
     }
   },
   getters: {
