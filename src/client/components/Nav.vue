@@ -2,9 +2,8 @@
   <nav>
     <div class="product-nav">
       <router-link to="/">Home</router-link>
-      <router-link to="/category1">Category1</router-link>
-      <router-link to="/category2">Category2</router-link>
-      <router-link to="/category3">Category1</router-link>
+      <router-link to="/aboutus">About Us</router-link>
+      <router-link to="/contacts">Contacts</router-link>
     </div>
     <div class="info">
       <div class="cart-number" v-if="getCart.length > 0">

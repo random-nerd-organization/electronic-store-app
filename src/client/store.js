@@ -55,6 +55,10 @@ export default new Vuex.Store({
       return state.ProductList.filter(product =>
         state.Cart.includes(product._id)
       );
+    },
+    getCartItem(state) {
+      console.log(id);
+      return this.state.ProductList.find(item => item._id === id);
     }
   },
   plugins: [vuexLocal.plugin]

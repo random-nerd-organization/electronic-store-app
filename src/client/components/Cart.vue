@@ -1,5 +1,5 @@
 <template>
-  <div class="cart" :class="{ open: showCart }">
+  <div class="cart" v-if="showCart" :class="{ open: showCart }">
     <div class="main-box" :class="{ scroll: getCartItems.length > 3 }">
       <div class="item" v-for="(item, key) in getCartItems" :key="key">
         <div class="details">
