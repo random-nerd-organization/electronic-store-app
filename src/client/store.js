@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VuexPersistence from 'vuex-persist';
+import { rejects } from 'assert';
 
 Vue.use(Vuex);
 
@@ -42,6 +43,32 @@ export default new Vuex.Store({
       const data = await res.json();
 
       commit('setAllProducts', data);
+    },
+    makeOrder({ commit }, payload) {
+      return new Promise(async (resolve, reject) => {
+        try {
+          const url =
+            process.env.NODE_ENV === 'development'
+              ? 'http://localhost:9000/.netlify/functions/app/cart'
+              : 'https://electronic-store.netlify.com/.netlify/functions/app/cart';
+
+          const res = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(payload),
+            // mode:'no-cors',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          
+          const data = await res.json();
+
+          resolve(data);
+        } catch (err) {
+          reject({ message: "Something got wrong, we cannot finish this order!", error: err })
+        }
+      });
+
     }
   },
   getters: {
