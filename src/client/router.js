@@ -12,17 +12,7 @@ export default new Router({
       component: Home
     },
     {
-      path: '/category1',
-      name: 'products',
-      component: () => import('./views/Products.vue')
-    },
-    {
-      path: '/category2',
-      name: 'products',
-      component: () => import('./views/Products.vue')
-    },
-    {
-      path: '/category3',
+      path: '/products/:id',
       name: 'products',
       component: () => import('./views/Products.vue')
     },

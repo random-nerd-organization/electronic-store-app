@@ -2,6 +2,9 @@
   <div class="card">
     <div class="showcase">
       <img :src="'/imageProducts/' + card.imgUrl" />
+      <router-link :to="'/products/' + card._id"
+        ><button class="details">Details</button></router-link
+      >
     </div>
 
     <div class="details">
@@ -135,10 +138,29 @@ export default {
     padding-top: 20px;
     box-sizing: border-box;
     max-height: 250px;
+    position: relative;
     img {
       width: 80%;
       height: auto;
       max-height: 250px;
+    }
+    .details {
+      color: black;
+      background: transparent;
+      border: 1px solid crimson;
+      position: absolute;
+      width: 100px;
+      left: calc(50% - 50px);
+      bottom: calc(0%);
+      height: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      &:hover {
+        background: crimson;
+        color: white;
+      }
     }
   }
   .details {

@@ -1,14 +1,19 @@
 <template>
   <div class="products">
-    PRODUCTS AND STUFF
+    <h3>{{ getCartItem.title }}</h3>
   </div>
 </template>
 
 <script>
 export default {
-  name: "products",
+  name: 'products',
   date() {
     return {};
+  },
+  computed: {
+    getCartItem() {
+      return this.$store.getters.getCartItem($route.params.id);
+    }
   }
 };
 </script>
