@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VuexPersistence from 'vuex-persist';
-import { rejects } from 'assert';
 
 Vue.use(Vuex);
 

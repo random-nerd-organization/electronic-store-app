@@ -12,7 +12,7 @@ export default {
   },
   computed: {
     getCartItem() {
-      return this.$store.getters.getCartItem($route.params.id);
+      return this.$store.getters.getCartItem(this.$route.params.id);
     }
   }
 };
