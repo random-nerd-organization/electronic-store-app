@@ -208,7 +208,7 @@ export default {
     }
   }
   .checked {
-    background: springgreen;
+    background: crimson;
   }
 }
 </style>
