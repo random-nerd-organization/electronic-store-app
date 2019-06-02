@@ -8,15 +8,15 @@
 </template>
 
 <script>
-import Navigation from "@/components/Nav.vue";
+import Navigation from '@/components/Nav.vue';
 
 export default {
-  name: "navigation",
+  name: 'navigation',
   components: {
     Navigation
   },
   beforeCreate() {
-    this.$store.dispatch("getProducts");
+    this.$store.dispatch('getProducts');
   }
 };
 </script>
@@ -32,7 +32,7 @@ body {
 }
 
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

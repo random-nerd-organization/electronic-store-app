@@ -24,10 +24,22 @@ export default {
     Card
   },
   methods: {
-    makeOrder() {
-      alert(
-        'This will send email to the admin and he have to call the buyer, this will be done after email backend service is implemented :)'
-      );
+    async makeOrder() {
+      const name = window.prompt("What's your name?"),
+        phone = window.prompt('Please give us a phone number to contact you!'),
+        email = window.prompt(
+          "Your email address in case we can't reach you from the phone!"
+        ),
+        message = "Hello we are friendly gus who don't want problems!!!";
+
+      let res = await this.$store.dispatch('makeOrder', {
+        name,
+        phone,
+        email,
+        message
+      });
+
+      window.alert(JSON.stringify(res));
     },
     addedToCart(id) {
       return this.$store.getters.getCart.includes(id);
