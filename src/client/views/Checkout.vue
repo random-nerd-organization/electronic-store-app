@@ -1,9 +1,11 @@
 <template>
   <div class="checkout">
+    <checkout-modal/>
     <div class="products-grid">
       <div>
         <h1>Checkout page</h1>
-        <button class="checkout" @click="makeOrder">Make Order</button>
+        <button class="checkout"  @click="$modal.show('checkout')">Make Order</button>
+        <!-- <button class="checkout" @click="makeOrder">Make Order</button> -->
       </div>
 
       <Card
@@ -18,12 +20,20 @@
 
 <script>
 import Card from '@/components/Card.vue';
+import CheckoutModal from '@/components/modals/CheckoutModal.vue';
 
 export default {
   components: {
-    Card
+    Card,
+    CheckoutModal
   },
   methods: {
+    showCheckoutModal() {
+      this.$modal.show('hello-world');
+    },
+    hideCheckoutModal() {
+      this.$modal.hide('hello-world');
+    },
     async makeOrder() {
       const name = window.prompt("What's your name?"),
         phone = window.prompt('Please give us a phone number to contact you!'),

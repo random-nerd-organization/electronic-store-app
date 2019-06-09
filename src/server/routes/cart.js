@@ -32,10 +32,7 @@ router.post('/', async (req, res) => {
     userInfo.email
   );
 
-  console.log('Message sent: %s', infoMerchant.messageId);
-  console.log('Preview URL: %s', nodemailer.getTestMessageUrl(infoMerchant));
-  console.log('Message sent: %s', infoBuyer.messageId);
-  console.log('Preview URL: %s', nodemailer.getTestMessageUrl(infoBuyer));
+  logInfo(infoMerchant, infoBuyer);
 
   res.status(200).send({
     message:
@@ -45,6 +42,14 @@ router.post('/', async (req, res) => {
 });
 
 module.exports = router;
+
+function logInfo(infoMerchant, infoBuyer) {
+  console.log('Message sent merchant: %s', infoMerchant.messageId);
+  console.log('Preview URL merchant: %s', nodemailer.getTestMessageUrl(infoMerchant));
+  console.log('-------------------------------------');
+  console.log('Message sent boyer: %s', infoBuyer.messageId);
+  console.log('Preview URL buyer: %s', nodemailer.getTestMessageUrl(infoBuyer));
+}
 
 async function sendEmailBuyer(transporter, emailMerchant, userName, userEmail) {
   return await transporter.sendMail({
