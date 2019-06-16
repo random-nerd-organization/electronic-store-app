@@ -39,7 +39,6 @@ export default {
       return this.$route.params.id;
     },
     getCartItem() {
-      console.log(this.$store.getters.getCartItem(this.getRoute));
       return this.$store.getters.getCartItem(this.getRoute);
     },
     inCart() {

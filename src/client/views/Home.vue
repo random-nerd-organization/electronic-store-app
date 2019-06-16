@@ -1,23 +1,34 @@
 <template>
-  <div class="home">
+  <div class="home" v-if="products">
+    <div class="categories">
+      <p
+        v-for="(category, key) in categories"
+        :key="key"
+        v-on:click="filterProducts(category)"
+        :class="{'checked': CategoriesToFilterBy.includes(category)}"
+      >{{category}}</p>
+    </div>
     <div class="product-grid">
-      <div class="categories">
-        <p
-          v-for="(category, key) in categories"
-          :key="key"
-          v-on:click="filterProducts(category)"
-          :class="{'checked': CategoriesToFilterBy.includes(category)}"
-        >{{category}}</p>
-      </div>
+      <Carousel class="carousel">
+        <Slide>
+          <img src="/imageProducts/11458028339230.jpg">
+        </Slide>
+        <Slide>
+          <img src="/imageProducts/11462603702302.jpg">
+        </Slide>
+        <Slide>
+          <img src="/imageProducts/11570667356190.jpg">
+        </Slide>
+        <Slide>
+          <img src="/imageProducts/11517939679262.jpg">
+        </Slide>
+      </Carousel>
       <Card
         v-for="prod in products"
         :key="prod._id"
         :card="prod"
         :addedToCart="addedToCart(prod._id)"
       />
-      <Carousel>
-        <Slide></Slide>
-      </Carousel>
     </div>
   </div>
 </template>
@@ -92,22 +103,41 @@ export default {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 5px;
     margin-top: 50px;
-    place-items: center;
+    .carousel {
+      grid-column: 1 / 4;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      width: 92.7%;
+      height: 92.5%;
+      margin-left: 30px;
+      justify-content: center;
+    }
   }
   .categories {
-    border: 1px solid rgba(#000, 0.1);
     width: 230px;
-    height: 370px;
     max-height: 370px;
     margin-bottom: 30px;
     text-align: left;
+    position: absolute;
+    transform: translateX(-230px);
+    border-radius: 4px;
     .checked {
-      color: crimson;
+      background: linear-gradient(to bottom, #23a1d1, #1f90bb);
+      color: white;
     }
     p {
       cursor: pointer;
+      background: rgba(#000, 0.1);
+      display: flex;
+      border-bottom: 1px solid rgba(#000, 0.3);
+      padding-top: 8px;
+      padding-bottom: 8px;
+      padding-left: 7px;
+      &:last-child {
+        border: none;
+      }
       &:hover {
-        color: crimson;
+        background: linear-gradient(to bottom, #23a1d1, #1f90bb);
+        color: white;
       }
     }
   }
