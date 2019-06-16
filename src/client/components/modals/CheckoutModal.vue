@@ -7,20 +7,29 @@
     :adaptive="true"
     :delay="100"
   >
-    <section id="modal-checkout">
+    <form id="modal-checkout" @submit="makeOrder" action="#" method="post" novalidate="true">
       <div>
         <label for="name">Твоето име</label>
-        <input type="text" name="name" id="name" placeholder="Име">
+        <input type="text" name="name" id="name" placeholder="Име" v-model="name">
+        <div class="field-errors">
+          <small v-for="error in errors.name" :key="error.key">{{ error.message }}</small>
+        </div>
       </div>
 
       <div>
         <label for="phone">Телефон по-който ще може да се свържем с Вас</label>
-        <input type="phone" name="phone" id="phone" placeholder="Телефон">
+        <input type="phone" name="phone" id="phone" placeholder="Телефон" v-model="phone">
+        <div class="field-errors">
+          <small v-for="error in errors.phone" :key="error.key">{{ error.message }}</small>
+        </div>
       </div>
 
       <div>
         <label for="email">Имейл в случей, че не можем да Ви открием по-телефона</label>
-        <input type="email" name="email" id="email" placeholder="Имейл">
+        <input type="email" name="email" id="email" placeholder="Имейл" v-model="email">
+        <div class="field-errors">
+          <small v-for="error in errors.email" :key="error.key">{{ error.message }}</small>
+        </div>
       </div>
 
       <div>
@@ -30,13 +39,14 @@
           name="message"
           id="message"
           placeholder="Тук може да оставите съобщение, например: 'Може да се свържете с мен по-всяко време на денонощието!'"
+          v-model="message"
         />
       </div>
 
       <div>
-        <button @click="makeOrder">Завърши Поръчка</button>
+        <button type="submit">Завърши Поръчка</button>
       </div>
-    </section>
+    </form>
   </modal>
 </template>
 
@@ -44,12 +54,81 @@
 export default {
   name: 'CheckoutModal',
   data() {
-    return {};
+    return {
+      errors: {
+        name: [],
+        phone: [],
+        email: [],
+        message: []
+      },
+      name: '',
+      phone: '',
+      email: '',
+      message: ''
+    };
   },
-  created() {},
   methods: {
+    validateOrder() {
+      const emptyString = '';
+      const regexPhoneValidator = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
+      const regexEmailValidator = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+      const emptyErrorsObject = {
+        name: [],
+        phone: [],
+        email: [],
+        message: []
+      };
+      this.errors = JSON.parse(JSON.stringify(emptyErrorsObject));
+
+      if (this.name.trim() === emptyString) {
+        this.errors.name.push({
+          message: 'Name is required!',
+          key: this.errors.name.length
+        });
+      }
+
+      if (this.phone.trim() === emptyString) {
+        this.errors.phone.push({
+          message: 'Phone is required!',
+          key: this.errors.phone.length
+        });
+      } else if (!regexPhoneValidator.test(this.phone)) {
+        this.errors.phone.push({
+          message: 'Invalid phone!',
+          key: this.errors.phone.length
+        });
+      }
+
+      if (this.email.trim() === emptyString) {
+        this.errors.email.push({
+          message: 'Email is required!',
+          key: this.errors.email.length
+        });
+      } else if (!regexEmailValidator.test(this.email)) {
+        this.errors.email.push({
+          message: 'Invalid email!',
+          key: this.errors.email.length
+        });
+      }
+
+      return JSON.stringify(this.errors) === JSON.stringify(emptyErrorsObject);
+    },
     makeOrder(ev) {
-      alert(12211121312);
+      ev.preventDefault();
+
+      if (this.validateOrder()) {
+        alert(
+          `SUCCESS!
+          This is your data:
+          - Name: ${this.name.trim()}
+          - Phone: ${this.phone.trim()}
+          - Email: ${this.email.trim()}
+          - Message: ${this.message.trim()}`
+          );
+      } else {
+        alert('ERROR!');
+      }
     }
   }
 };
@@ -63,6 +142,12 @@ export default {
   align-items: center;
   width: auto;
   padding: 35px;
+
+  .field-errors > small {
+    color: red;
+    display: flex;
+    margin-top: 4px;
+  }
 
   > div {
     display: flex;
