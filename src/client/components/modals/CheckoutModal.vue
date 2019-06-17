@@ -8,31 +8,31 @@
     :delay="100"
   >
     <form id="modal-checkout" @submit="makeOrder" action="#" method="post" novalidate="true">
-      <div>
+      <section>
         <label for="name">Твоето име</label>
         <input type="text" name="name" id="name" placeholder="Име" v-model="name">
         <div class="field-errors">
           <small v-for="error in errors.name" :key="error.key">{{ error.message }}</small>
         </div>
-      </div>
+      </section>
 
-      <div>
+      <section>
         <label for="phone">Телефон по-който ще може да се свържем с Вас</label>
         <input type="phone" name="phone" id="phone" placeholder="Телефон" v-model="phone">
         <div class="field-errors">
           <small v-for="error in errors.phone" :key="error.key">{{ error.message }}</small>
         </div>
-      </div>
+      </section>
 
-      <div>
+      <section>
         <label for="email">Имейл в случей, че не можем да Ви открием по-телефона</label>
         <input type="email" name="email" id="email" placeholder="Имейл" v-model="email">
         <div class="field-errors">
           <small v-for="error in errors.email" :key="error.key">{{ error.message }}</small>
         </div>
-      </div>
+      </section>
 
-      <div>
+      <section>
         <label for="message">Съобщение</label>
         <textarea
           rows="5"
@@ -41,11 +41,11 @@
           placeholder="Тук може да оставите съобщение, например: 'Може да се свържете с мен по-всяко време на денонощието!'"
           v-model="message"
         />
-      </div>
+      </section>
 
-      <div>
-        <button type="submit">Завърши Поръчка</button>
-      </div>
+      <section>
+        <button id="make-order" type="submit">Завърши Поръчка</button>
+      </section>
     </form>
   </modal>
 </template>
@@ -58,8 +58,7 @@ export default {
       errors: {
         name: [],
         phone: [],
-        email: [],
-        message: []
+        email: []
       },
       name: '',
       phone: '',
@@ -76,8 +75,7 @@ export default {
       const emptyErrorsObject = {
         name: [],
         phone: [],
-        email: [],
-        message: []
+        email: []
       };
       this.errors = JSON.parse(JSON.stringify(emptyErrorsObject));
 
@@ -95,7 +93,7 @@ export default {
         });
       } else if (!regexPhoneValidator.test(this.phone)) {
         this.errors.phone.push({
-          message: 'Invalid phone!',
+          message: 'Invalid phone number!',
           key: this.errors.phone.length
         });
       }
@@ -125,7 +123,7 @@ export default {
           - Phone: ${this.phone.trim()}
           - Email: ${this.email.trim()}
           - Message: ${this.message.trim()}`
-          );
+        );
       } else {
         alert('ERROR!');
       }
@@ -135,7 +133,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#modal-checkout {
+form#modal-checkout {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -149,28 +147,23 @@ export default {
     margin-top: 4px;
   }
 
-  > div {
+  > section {
     display: flex;
     flex-direction: column;
     width: 100%;
     padding: 5px 0;
 
-    label,
-    input {
-      padding: 3px 0;
-    }
-
     label {
       cursor: pointer;
-      font-size: 1.2em;
-    }
-    input {
-      padding: 15px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
+      font-size: 0.9em;
+      font-weight: 500;
     }
 
-    button {
+    textarea#message {
+      resize: none;
+    }
+
+    button#make-order {
       margin-top: 5px;
       cursor: pointer;
       padding: 15px;
@@ -179,6 +172,18 @@ export default {
       background: #229ac8;
       color: white;
       text-transform: uppercase;
+    }
+
+    label,
+    input {
+      padding: 3px 0;
+    }
+
+    input,
+    textarea {
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
     }
   }
 }
