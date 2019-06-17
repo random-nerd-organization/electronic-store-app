@@ -112,20 +112,17 @@ export default {
 
       return JSON.stringify(this.errors) === JSON.stringify(emptyErrorsObject);
     },
-    makeOrder(ev) {
+    async makeOrder(ev) {
       ev.preventDefault();
-
       if (this.validateOrder()) {
-        alert(
-          `SUCCESS!
-          This is your data:
-          - Name: ${this.name.trim()}
-          - Phone: ${this.phone.trim()}
-          - Email: ${this.email.trim()}
-          - Message: ${this.message.trim()}`
-        );
-      } else {
-        alert('ERROR!');
+        const payload = {
+          name: this.name.trim(),
+          phone: this.phone.trim(),
+          email: this.email.trim(),
+          message: this.message.trim()
+        };
+        let res = await this.$store.dispatch('makeOrder', payload);
+        alert(JSON.stringify(res));
       }
     }
   }

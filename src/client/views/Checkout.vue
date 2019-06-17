@@ -5,9 +5,7 @@
       <div>
         <h1>Checkout page</h1>
         <button class="checkout"  @click="$modal.show('checkout')">Make Order</button>
-        <!-- <button class="checkout" @click="makeOrder">Make Order</button> -->
       </div>
-
       <Card
         v-for="prod in products"
         :key="prod._id"
@@ -33,23 +31,6 @@ export default {
     },
     hideCheckoutModal() {
       this.$modal.hide('hello-world');
-    },
-    async makeOrder() {
-      const name = window.prompt("What's your name?"),
-        phone = window.prompt('Please give us a phone number to contact you!'),
-        email = window.prompt(
-          "Your email address in case we can't reach you from the phone!"
-        ),
-        message = "Hello we are friendly gus who don't want problems!!!";
-
-      let res = await this.$store.dispatch('makeOrder', {
-        name,
-        phone,
-        email,
-        message
-      });
-
-      window.alert(JSON.stringify(res));
     },
     addedToCart(id) {
       return this.$store.getters.getCart.includes(id);

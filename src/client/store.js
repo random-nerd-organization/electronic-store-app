@@ -54,7 +54,6 @@ export default new Vuex.Store({
           const res = await fetch(url, {
             method: 'POST',
             body: JSON.stringify(payload),
-            // mode:'no-cors',
             headers: {
               'Content-Type': 'application/json'
             }
