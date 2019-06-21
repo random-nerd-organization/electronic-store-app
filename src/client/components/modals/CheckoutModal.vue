@@ -112,6 +112,7 @@ export default {
 
       return JSON.stringify(this.errors) === JSON.stringify(emptyErrorsObject);
     },
+    
     async makeOrder(ev) {
       ev.preventDefault();
       if (this.validateOrder()) {

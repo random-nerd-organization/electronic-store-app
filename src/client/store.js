@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VuexPersistence from 'vuex-persist';
+import cartService from './services/cart-service';
 
 Vue.use(Vuex);
 
@@ -12,23 +13,31 @@ const vuexLocal = new VuexPersistence({
 export default new Vuex.Store({
   state: {
     Cart: [],
+    _Cart: new Map(),
     ProductList: []
   },
   mutations: {
     addToCart(state, product) {
       state.Cart.push(product._id);
+      cartService.addProductToCart(state, product);
     },
     removeOneFromCart(state, id) {
       const index = state.Cart.indexOf(id);
       if (index != -1) {
         state.Cart.splice(index, 1);
       }
+
+      const productId = id.toString();
+      cartService.decrementProductFromCart(state, productId);
     },
     setAllProducts(state, products) {
       state.ProductList = products;
     },
     removeItemFromCart(state, id) {
       state.Cart = state.Cart.filter(item => item !== id);
+
+      const productId = id.toString();
+      cartService.removeProductFromCart(state, productId);
     }
   },
   actions: {
@@ -43,7 +52,7 @@ export default new Vuex.Store({
 
       commit('setAllProducts', data);
     },
-    makeOrder({ commit }, payload) {
+    makeOrder({ state }, payload) {
       return new Promise(async (resolve, reject) => {
         try {
           const url =
@@ -53,7 +62,7 @@ export default new Vuex.Store({
 
           const res = await fetch(url, {
             method: 'POST',
-            body: JSON.stringify(payload),
+            body: JSON.stringify({ orderInfo: [...state._Cart], userInfo: payload }),
             headers: {
               'Content-Type': 'application/json'
             }

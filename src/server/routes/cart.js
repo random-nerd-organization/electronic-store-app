@@ -8,7 +8,7 @@ router.post('/', async (req, res) => {
   const passwordEmailMerchant = process.env.PASSWORD_MERCHANT;
 
   let transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com', 
+    host: 'smtp.gmail.com',
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
@@ -17,11 +17,12 @@ router.post('/', async (req, res) => {
     }
   });
 
-  const userInfo = ({ name, email, phone, message } = req.body);
+  const { orderInfo, userInfo } = req.body;
 
   let infoMerchant = await sendEmailMerchant(
     transporter,
     emailMerchant,
+    orderInfo,
     userInfo
   );
 
@@ -67,7 +68,7 @@ async function sendEmailBuyer(transporter, emailMerchant, userName, userEmail) {
   });
 }
 
-async function sendEmailMerchant(transporter, emailMerchant, userInfo) {
+async function sendEmailMerchant(transporter, emailMerchant, orderInfo, userInfo) {
   const { name, phone, email, message } = userInfo;
   return await transporter.sendMail({
     from: `"Wazaaa Bro 👻" <${emailMerchant}>`,
@@ -75,17 +76,23 @@ async function sendEmailMerchant(transporter, emailMerchant, userInfo) {
     subject: `Нова поръчка от '${name}'`,
     html: `
       <div>
-        <h1>Имате нова поръчка от '${name}'</h1>
-        <p>
-          <strong>Телефон:</strong> ${phone}
-         </p>
-        <p>
-          <strong>Мейл:</strong> ${email}
-         </p>
-        <p>
-          <strong>Съобщение:</strong> ${message}
-        </p>
-      </div>
+        <section>
+          <h1>Имате нова поръчка от '${name}'</h1>
+          <p>
+            <strong>Телефон:</strong> ${phone}
+          </p>
+          <p>
+            <strong>Мейл:</strong> ${email}
+          </p>
+          <p>
+            <strong>Съобщение:</strong> ${message}
+          </p>
+        </section>
+
+        <section>
+          ${JSON.stringify(orderInfo, null, '\t')}
+        </section>
+        </div>
     `
   });
 }
