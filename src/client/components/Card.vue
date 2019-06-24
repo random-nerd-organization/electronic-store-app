@@ -1,10 +1,12 @@
 <template>
   <div class="card">
     <div class="showcase">
-      <img :src="'/imageProducts/' + card.imgUrl" />
-      <router-link :to="'/products/' + card._id"
-        ><button class="details">Details</button></router-link
-      >
+      <img :src="'/imageProducts/' + card.imgUrl">
+      <div class="details-overlay">
+        <router-link :to="'/products/' + card._id">
+          <button class="details">Details</button>
+        </router-link>
+      </div>
     </div>
 
     <div class="details">
@@ -44,14 +46,11 @@
             <circle cx="8.5" cy="19.5" r="1.5"></circle>
             <circle cx="17.5" cy="19.5" r="1.5"></circle>
           </g>
-        </g></svg
-      ><span>Add to Cart</span>
+        </g>
+      </svg>
+      <span>Add to Cart</span>
     </button>
-    <button
-      v-on:click="removeItemFromCart(card._id)"
-      class="add checked"
-      v-if="addedToCart"
-    >
+    <button v-on:click="removeItemFromCart(card._id)" class="add checked" v-if="addedToCart">
       <i class="fas fa-shopping-cart"></i>
       <svg
         baseProfile="tiny"
@@ -123,35 +122,33 @@ export default {
   display: flex;
   flex-direction: column;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  //box-shadow: 0 0 2px gray;
   width: 230px;
   height: 370px;
   justify-content: space-between;
   padding: 0;
   transition: transform 0.2s ease-in, box-shadow 0.2s ease-in;
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 0px 3px 1px lightgray;
-  }
-  .showcase {
+  .details-overlay {
     width: 100%;
-    padding-top: 20px;
-    box-sizing: border-box;
-    max-height: 250px;
-    position: relative;
-    img {
-      width: 80%;
-      height: auto;
-      max-height: 250px;
+    height: 200px;
+    position: absolute;
+    background: rgba(#000, 0.6);
+    top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+    transform: scale(0.8);
+    a {
+      text-decoration: none;
     }
     .details {
-      color: black;
+      color: white;
       background: transparent;
       border: 1px solid crimson;
-      position: absolute;
+      font-size: 1.2em;
+      padding: 15px;
       width: 100px;
-      left: calc(50% - 50px);
-      bottom: calc(0%);
       height: 25px;
       display: flex;
       align-items: center;
@@ -161,6 +158,26 @@ export default {
         background: crimson;
         color: white;
       }
+    }
+  }
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 3px 1px lightgray;
+    .details-overlay {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  .showcase {
+    width: 100%;
+    padding-top: 20px;
+    box-sizing: border-box;
+    max-height: 200px;
+    position: relative;
+    img {
+      width: 80%;
+      height: auto;
+      max-height: 100%;
     }
   }
   .details {
@@ -186,7 +203,7 @@ export default {
     }
   }
   .add {
-    background: rgb(40, 200, 164);
+    background: linear-gradient(to bottom, #23a1d1, #1f90bb);
     opacity: 0.8;
     color: white;
     height: 40px;

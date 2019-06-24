@@ -85,7 +85,7 @@ export default {
           height: 30px;
           width: 30px;
           border: none;
-          background: #28c8a4;
+          background: linear-gradient(to bottom, #23a1d1, #1f90bb);
           display: flex;
           align-items: center;
           justify-content: center;

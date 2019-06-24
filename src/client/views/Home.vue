@@ -117,7 +117,7 @@ export default {
     max-height: 370px;
     margin-bottom: 30px;
     text-align: left;
-    position: absolute;
+    position: fixed;
     transform: translateX(-230px);
     border-radius: 4px;
     .checked {

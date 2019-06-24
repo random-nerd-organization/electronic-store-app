@@ -168,7 +168,7 @@ export default {
           }
         }
         .add {
-          background: springgreen;
+          background: linear-gradient(to bottom, #23a1d1, #1f90bb);
           display: flex;
           align-items: center;
           justify-content: center;
